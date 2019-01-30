@@ -9,8 +9,8 @@ import (
 	"github.com/hashicorp/errwrap"
 	dto "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
-	"github.com/prometheus/common/log"
 	"github.com/wrouesnel/reverse_exporter/config"
+	"go.uber.org/zap"
 )
 
 // ensure fileProxy implements MetricProxy
@@ -20,13 +20,13 @@ var _ MetricProxy = &fileProxy{}
 // of text-formatted metrics from disk (similar to the node_exporter textfile collector).
 type fileProxy struct {
 	filePath string
-	log      log.Logger
+	log      *zap.Logger
 }
 
 func newFileProxy(config *config.FileExporterConfig) *fileProxy {
 	return &fileProxy{
 		filePath: config.Path,
-		log:      log.Base(),
+		log:      zap.L(),
 	}
 }
 
@@ -44,7 +44,7 @@ func (fp *fileProxy) Scrape(ctx context.Context, values url.Values) ([]*dto.Metr
 	rc := ioutils.NewCancelReadCloser(ctx, metricFile)
 	defer func() {
 		if err := rc.Close(); err != nil {
-			fp.log.With("error", err.Error()).Errorln("Error closing file")
+			fp.log.Error("Error closing file", zap.Error(err))
 		}
 	}()
 
