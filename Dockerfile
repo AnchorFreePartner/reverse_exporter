@@ -4,6 +4,6 @@ RUN mkdir -p /go/src/github.com/wrouesnel/reverse_exporter
 WORKDIR /go/src/github.com/wrouesnel/reverse_exporter
 COPY . .
 
-RUN go run mage.go binary
+RUN go build ./cmd/reverse_exporter/
 
 ENTRYPOINT [ "./reverse_exporter" ]
