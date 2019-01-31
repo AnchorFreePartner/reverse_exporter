@@ -1,4 +1,4 @@
-FROM golang:1.10 as build
+FROM golang:1.11 as build
 
 RUN mkdir -p /go/src/github.com/wrouesnel/reverse_exporter
 WORKDIR /go/src/github.com/wrouesnel/reverse_exporter
