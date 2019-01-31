@@ -335,7 +335,7 @@ func (ecp *execCachingProxy) Scrape(ctx context.Context, values url.Values) ([]*
 
 	select {
 	case <-ecp.resultReadyCh:
-		zap.L().Debug("Returning cached results of scrape")
+		ecp.log.Debug("Returning cached results of scrape")
 	case <-ctx.Done():
 		// context cancelled before scrape finished
 		rerr = ErrScrapeTimeoutBeforeExecFinished
