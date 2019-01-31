@@ -24,20 +24,15 @@
 #   go-tests = true
 #   unused-packages = true
 
-
-[[constraint]]
-  name = "gopkg.in/alecthomas/kingpin.v2"
-  version = "2.1.11"
-
 [prune]
   go-tests = true
   unused-packages = true
 
 [[constraint]]
+  name = "gopkg.in/alecthomas/kingpin.v2"
+  version = "2.1.11"
+
+[[constraint]]
   name = "github.com/docker/docker"
   version = "18.09"
   source = "https://github.com/docker/engine.git"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/prometheus/client_golang"
